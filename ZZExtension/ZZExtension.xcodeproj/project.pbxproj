@@ -18,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0860EC6620B69F9C000A3C87 /* ZZExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZExtension.h; sourceTree = "<group>"; };
 		08A01EE220B28BC000EE4004 /* ZZExtension.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZZExtension.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08A01EE520B28BC000EE4004 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		08A01EE620B28BC000EE4004 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -97,6 +98,7 @@
 		08A01EFD20B28CE000EE4004 /* ZZExtension */ = {
 			isa = PBXGroup;
 			children = (
+				0860EC6620B69F9C000A3C87 /* ZZExtension.h */,
 				0860EC6520B69CB0000A3C87 /* UITabBar+ZZExtension */,
 			);
 			path = ZZExtension;

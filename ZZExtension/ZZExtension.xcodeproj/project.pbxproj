@@ -28,7 +28,6 @@
 		08A01EF420B28BC100EE4004 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		08A4CCA920B28D8800D784ED /* UITabBar+ZZExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBar+ZZExtension.h"; sourceTree = "<group>"; };
 		08A4CCAA20B28D8800D784ED /* UITabBar+ZZExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+ZZExtension.m"; sourceTree = "<group>"; };
-		08A4CCAC20B2913200D784ED /* ZZExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZExtension.h; sourceTree = "<group>"; };
 		08A4CCAD20B291BB00D784ED /* ZZTabbarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZTabbarController.h; sourceTree = "<group>"; };
 		08A4CCAE20B291BB00D784ED /* ZZTabbarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZTabbarController.m; sourceTree = "<group>"; };
 		08A4CCB220B291F900D784ED /* ZZViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZViewController.h; sourceTree = "<group>"; };
@@ -98,7 +97,6 @@
 		08A01EFD20B28CE000EE4004 /* ZZExtension */ = {
 			isa = PBXGroup;
 			children = (
-				08A4CCAC20B2913200D784ED /* ZZExtension.h */,
 				0860EC6520B69CB0000A3C87 /* UITabBar+ZZExtension */,
 			);
 			path = ZZExtension;

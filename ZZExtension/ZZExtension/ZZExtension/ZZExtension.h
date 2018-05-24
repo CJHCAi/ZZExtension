@@ -6,10 +6,7 @@
 //  Copyright © 2018年 刘猛. All rights reserved.
 //
 
-#ifndef ZZExtension_h
-#define ZZExtension_h
-
 #import "UITabBar+ZZExtension.h"
 
 
-#endif /* ZZExtension_h */
+

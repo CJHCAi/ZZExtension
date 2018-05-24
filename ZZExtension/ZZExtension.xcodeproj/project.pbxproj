@@ -46,6 +46,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0860EC6420B69A84000A3C87 /* UITabBar+ZZExtension */ = {
+			isa = PBXGroup;
+			children = (
+				08A4CCA920B28D8800D784ED /* UITabBar+ZZExtension.h */,
+				08A4CCAA20B28D8800D784ED /* UITabBar+ZZExtension.m */,
+			);
+			name = "UITabBar+ZZExtension";
+			sourceTree = "<group>";
+		};
 		08A01ED920B28BC000EE4004 = {
 			isa = PBXGroup;
 			children = (
@@ -90,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				08A4CCAC20B2913200D784ED /* ZZExtension.h */,
-				08A4CCA820B28D5A00D784ED /* UITabBar+ZZExtension */,
+				0860EC6420B69A84000A3C87 /* UITabBar+ZZExtension */,
 			);
 			path = ZZExtension;
 			sourceTree = "<group>";
@@ -102,15 +111,6 @@
 				08A4CCB020B291C600D784ED /* ZZTabbarController */,
 			);
 			path = Demo;
-			sourceTree = "<group>";
-		};
-		08A4CCA820B28D5A00D784ED /* UITabBar+ZZExtension */ = {
-			isa = PBXGroup;
-			children = (
-				08A4CCA920B28D8800D784ED /* UITabBar+ZZExtension.h */,
-				08A4CCAA20B28D8800D784ED /* UITabBar+ZZExtension.m */,
-			);
-			path = "UITabBar+ZZExtension";
 			sourceTree = "<group>";
 		};
 		08A4CCB020B291C600D784ED /* ZZTabbarController */ = {

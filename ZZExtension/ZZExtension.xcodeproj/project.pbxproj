@@ -15,6 +15,7 @@
 		08A4CCAB20B28D8800D784ED /* UITabBar+ZZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A4CCAA20B28D8800D784ED /* UITabBar+ZZExtension.m */; };
 		08A4CCAF20B291BB00D784ED /* ZZTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A4CCAE20B291BB00D784ED /* ZZTabbarController.m */; };
 		08A4CCB420B291F900D784ED /* ZZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A4CCB320B291F900D784ED /* ZZViewController.m */; };
+		193076ECF7139B0426E4D8EA /* libPods-ZZExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD0A8E5D8C4C1968A4BD41 /* libPods-ZZExtension.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,9 @@
 		08A4CCAE20B291BB00D784ED /* ZZTabbarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZTabbarController.m; sourceTree = "<group>"; };
 		08A4CCB220B291F900D784ED /* ZZViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZViewController.h; sourceTree = "<group>"; };
 		08A4CCB320B291F900D784ED /* ZZViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZViewController.m; sourceTree = "<group>"; };
+		172378A41B65F5F198FBBD9F /* Pods-ZZExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZZExtension/Pods-ZZExtension.release.xcconfig"; sourceTree = "<group>"; };
+		5F9DE1FF4720BD153146B9A6 /* Pods-ZZExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZZExtension/Pods-ZZExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		FAFD0A8E5D8C4C1968A4BD41 /* libPods-ZZExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZZExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				193076ECF7139B0426E4D8EA /* libPods-ZZExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +65,8 @@
 			children = (
 				08A01EE420B28BC000EE4004 /* ZZExtension */,
 				08A01EE320B28BC000EE4004 /* Products */,
+				BEBC48D7F163A31121A7717D /* Pods */,
+				7B2E845CB3ECE0D0CCE28547 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,6 +138,23 @@
 			path = ZZViewController;
 			sourceTree = "<group>";
 		};
+		7B2E845CB3ECE0D0CCE28547 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAFD0A8E5D8C4C1968A4BD41 /* libPods-ZZExtension.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BEBC48D7F163A31121A7717D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5F9DE1FF4720BD153146B9A6 /* Pods-ZZExtension.debug.xcconfig */,
+				172378A41B65F5F198FBBD9F /* Pods-ZZExtension.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,6 +162,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 08A01EF820B28BC100EE4004 /* Build configuration list for PBXNativeTarget "ZZExtension" */;
 			buildPhases = (
+				8E935BE5C814F4298D559D35 /* [CP] Check Pods Manifest.lock */,
 				08A01EDE20B28BC000EE4004 /* Sources */,
 				08A01EDF20B28BC000EE4004 /* Frameworks */,
 				08A01EE020B28BC000EE4004 /* Resources */,
@@ -195,6 +220,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8E935BE5C814F4298D559D35 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ZZExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		08A01EDE20B28BC000EE4004 /* Sources */ = {
@@ -343,12 +389,13 @@
 		};
 		08A01EF920B28BC100EE4004 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F9DE1FF4720BD153146B9A6 /* Pods-ZZExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WYH8FX94BX;
 				INFOPLIST_FILE = ZZExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -361,12 +408,13 @@
 		};
 		08A01EFA20B28BC100EE4004 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 172378A41B65F5F198FBBD9F /* Pods-ZZExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WYH8FX94BX;
 				INFOPLIST_FILE = ZZExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

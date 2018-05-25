@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ZZTabbarController.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +19,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
     
+    //设置tabbar上文字的颜色!
+    [UITabBarItem.appearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    [UITabBarItem.appearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateSelected];
+    
+    ZZTabbarController *tabbar = [[ZZTabbarController alloc] init];
+    self.window.rootViewController = tabbar;[self.window makeKeyAndVisible];
     
     
     

@@ -31,7 +31,7 @@ static char ZZ_CENTERBUTTON;
         //3.判断tabbarController的当前控制器类型
         UITabBarController *tabbar = (UITabBarController *)rootVC;
         UIViewController *currentVC = [tabbar selectedViewController];
-        
+        NSLog(@"class === %@",NSStringFromClass([currentVC class]));
         //3.1如果当前控制器是导航控制器或其子类
         if ([currentVC isKindOfClass:[UINavigationController class]]) {
             UINavigationController *nav = (UINavigationController *)currentVC;
@@ -43,6 +43,8 @@ static char ZZ_CENTERBUTTON;
                     if (vc.hidesBottomBarWhenPushed == YES) {result = NO;}
                 }
                 if (result) {view = self.zz_centerButton;}
+            }else{
+                view = self.zz_centerButton;
             }
             
         }else if ([currentVC isKindOfClass:[UIViewController class]]) {

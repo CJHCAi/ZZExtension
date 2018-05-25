@@ -56,6 +56,8 @@ static char ZZ_CENTERBUTTON;
     return view;
 }
 
+
+
 #pragma mark - 类别中添加属性需要实现属性的set/get
 -(void)setZz_centerButton:(UIButton *)zz_centerButton{
     objc_setAssociatedObject(self, &ZZ_CENTERBUTTON, zz_centerButton, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -66,3 +68,16 @@ static char ZZ_CENTERBUTTON;
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+

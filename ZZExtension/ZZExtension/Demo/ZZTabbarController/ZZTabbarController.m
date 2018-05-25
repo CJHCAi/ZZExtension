@@ -27,8 +27,6 @@
 /**我的*/
 @property(nonatomic,strong)ZZViewController *profileVC;
 
-
-
 @end
 
 @implementation ZZTabbarController
@@ -40,6 +38,10 @@
     [self demo1];
     
 }
+
+//-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
+//    NSLog(@"item.title === %@",item.title);
+//}
 
 
 -(void)demo1{
@@ -94,13 +96,11 @@
     self.tabBar.zz_centerButton = button;
 }
 
-
+//核心代码3:处理按钮的点击事件
 -(void)centerButtonClick{
     self.tabBar.zz_centerButton.selected = YES;
     [self setSelectedIndex:1];
 }
-
-
 
 //tabbar高度适配iPhone X
 -(void)viewWillLayoutSubviews{

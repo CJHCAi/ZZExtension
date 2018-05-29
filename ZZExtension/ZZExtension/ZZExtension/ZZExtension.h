@@ -10,11 +10,11 @@
 #import <SDAutoLayout/SDAutoLayout.h>
 
 //MARK:- UI常量
-#define AfW(x) x / 375.0 * UIWidth
-#define UIWidth UIScreen.mainScreen.bounds.size.width
-#define UIHeight UIScreen.mainScreen.bounds.size.height
-#define UIKeyWindow [[UIApplication sharedApplication] keyWindow]
-#define SafeAreaBottomHeight (UIHeight == 812.0 ? 34 : 0)
+#define AfW(x) x / 375.0 * ZZWidth
+#define ZZWidth UIScreen.mainScreen.bounds.size.width
+#define ZZHeight UIScreen.mainScreen.bounds.size.height
+#define ZZKeyWindow [[UIApplication sharedApplication] keyWindow]
+#define ZZSafeAreaBottomHeight (ZZHeight == 812.0 ? 34 : 0)
 
 //MARK:- 重写NSLog
 #if DEBUG

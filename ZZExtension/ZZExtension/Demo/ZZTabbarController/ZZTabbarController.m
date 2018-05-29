@@ -87,8 +87,8 @@
     [button setImage:[UIImage imageNamed:@"huibaowdj"] forState:(UIControlStateNormal)];
     [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
     button.backgroundColor = [UIColor darkGrayColor];
-    button.sd_layout.centerXEqualToView(self.tabBar).bottomSpaceToView(self.tabBar, SafeAreaBottomHeight)
-    .widthIs(UIWidth / self.viewControllers.count)
+    button.sd_layout.centerXEqualToView(self.tabBar).bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)
+    .widthIs(ZZWidth / self.viewControllers.count)
     .heightIs(64);
     [button addTarget:self action:@selector(centerButtonClick) forControlEvents:(UIControlEventTouchUpInside)];
     

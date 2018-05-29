@@ -56,10 +56,29 @@ static char ZZ_CENTERBUTTON;
     return view;
 }
 
-
+//#pragma mark - kvo
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+//    NSLog(@"keyPath === %@",keyPath);
+//    NSLog(@"change === %@",change);
+//}
 
 #pragma mark - 类别中添加属性需要实现属性的set/get
 -(void)setZz_centerButton:(UIButton *)zz_centerButton{
+//    if (!self.zz_centerButton) {//如果是首次赋值则开始监听
+//        //1.获取根视图
+//        UIViewController *rootVC = [[UIApplication sharedApplication].keyWindow rootViewController];
+//        NSLog(@"rootVC === %@",NSStringFromClass([rootVC class]));
+//
+//
+//        //2.判断根视图类型
+//        if (![rootVC isKindOfClass:[UITabBarController class]]) {return ;}//如果是不是UITabBarController或其子类直接返回即可
+//
+//        UITabBarController *tabbar = (UITabBarController *)rootVC;
+//
+//        [tabbar addObserver:self forKeyPath:@"_selectedIndex" options:NSKeyValueObservingOptionNew context:nil];
+//
+//    }
+    
     objc_setAssociatedObject(self, &ZZ_CENTERBUTTON, zz_centerButton, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

@@ -392,6 +392,7 @@
 			baseConfigurationReference = 5F9DE1FF4720BD153146B9A6 /* Pods-ZZExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WYH8FX94BX;
 				INFOPLIST_FILE = ZZExtension/Info.plist;
@@ -411,6 +412,7 @@
 			baseConfigurationReference = 172378A41B65F5F198FBBD9F /* Pods-ZZExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WYH8FX94BX;
 				INFOPLIST_FILE = ZZExtension/Info.plist;

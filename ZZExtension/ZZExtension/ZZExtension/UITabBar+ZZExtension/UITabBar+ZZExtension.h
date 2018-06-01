@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^zz_centerButtonClickCallBack)(void);
+typedef void(^zz_tabbarCenterButtonClickCallBack)(void);
 
 @interface UITabBar (ZZExtension)
 
@@ -18,6 +18,6 @@ typedef void(^zz_centerButtonClickCallBack)(void);
  * boundIndex   :   当按钮点击时,选中某个控制器,<0则不选中
  * callBack     :   按钮的点击回调
  */
--(void)zz_setCenterButtonWithButton:(UIButton *)button selectIndexWhenThisButtonClick:(int)boundIndex callBack:(zz_centerButtonClickCallBack)callBack;
+-(void)zz_setCenterButtonWithButton:(UIButton *)button selectIndexWhenThisButtonClick:(int)boundIndex callBack:(zz_tabbarCenterButtonClickCallBack)callBack;
 
 @end

@@ -14,20 +14,20 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
 @interface UITabBar ()
 
 /**中间的按钮*/
-@property(nonatomic,strong)UIButton                     *zz_centerButton;
+@property(nonatomic,strong)UIButton                             *zz_centerButton;
 
 /**当按钮点击时,选中某个控制器,<0则不选中*/
-@property(nonatomic,assign)int                          zz_boundIndex;
+@property(nonatomic,assign)int                                  zz_boundIndex;
 
 /**中间按钮点击的回调*/
-@property(nonatomic,  copy)zz_centerButtonClickCallBack zz_callBack;
+@property(nonatomic,  copy)zz_tabbarCenterButtonClickCallBack   zz_callBack;
 
 @end;
 
 @implementation UITabBar (ZZExtension)
 
 #pragma mark - 对外提供的初始化方法
--(void)zz_setCenterButtonWithButton:(UIButton *)button selectIndexWhenThisButtonClick:(int)boundIndex callBack:(zz_centerButtonClickCallBack)callBack{
+-(void)zz_setCenterButtonWithButton:(UIButton *)button selectIndexWhenThisButtonClick:(int)boundIndex callBack:(zz_tabbarCenterButtonClickCallBack)callBack{
     self.zz_centerButton    = button;
     self.zz_boundIndex      = boundIndex;
     self.zz_callBack        = callBack;
@@ -119,11 +119,11 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     return [objc_getAssociatedObject(self, &ZZ_BOUNDINDEX) intValue];
 }
 
--(void)setZz_callBack:(zz_centerButtonClickCallBack)zz_callBack{
+-(void)setZz_callBack:(zz_tabbarCenterButtonClickCallBack)zz_callBack{
     objc_setAssociatedObject(self, &ZZ_CENTERBUTTONCLICKCALLBACK, zz_callBack, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
--(zz_centerButtonClickCallBack)zz_callBack{
+-(zz_tabbarCenterButtonClickCallBack)zz_callBack{
     return objc_getAssociatedObject(self, &ZZ_CENTERBUTTONCLICKCALLBACK);
 }
 

@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //1.一些基础性的代码,在tabbarContrller上添加三个navigationController
+    //1.一些基础性的代码,在tabbarContrller上添加三个navigationController.
     [self setupTabbarController];
     
     //2.超出tabbarItem的tabbar
@@ -60,6 +60,7 @@
     
 }
 
+#pragma mark - 得到一个button,其实就是样式有略微的不同,往下都是demo的实现逻辑
 -(UIButton *)getButtonWithType:(int)type{
     UIButton *button;
     if (type == 1) {
@@ -91,7 +92,6 @@
     tabFrame.origin.y = self.view.frame.size.height - height;
     self.tabBar.frame = tabFrame;self.tabBar.barStyle = UIBarStyleDefault;
 }
-
 
 #pragma mark - tabbarController的基础设置,这里你可以有你自己的设置.
 -(void)setupTabbarController{

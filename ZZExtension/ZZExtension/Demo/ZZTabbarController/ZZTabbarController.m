@@ -10,7 +10,7 @@
 #import "ZZViewController.h"
 #import "ZZTabbarController.h"
 
-@interface ZZTabbarController ()
+@interface ZZTabbarController ()<UITabBarDelegate>
 
 //容器数组
 @property(nonatomic,strong)NSArray          *imageNames;
@@ -33,18 +33,46 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //1.一些基础性的代码,在tabbarContrller上添加三个navigationController
+    [self setupTabbarController];
     
-    //超出tabbarItem的tabbar
-    [self demo1];
+    //2.超出tabbarItem的tabbar
+    [self demo];
+}
+
+
+#pragma mark - 这里的demo是举例说明怎么添加一个超出tabbar的按钮,按钮你自己写!
+-(void)demo{
+    
+    //实现:设置超出的按钮(其实就是写一个按钮覆盖到self.tabBar上)
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.tabBar addSubview:button];
+    [button setImage:[UIImage imageNamed:@"huibaowdj"] forState:(UIControlStateNormal)];
+    [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
+    button.backgroundColor = [UIColor darkGrayColor];
+    button.sd_layout.centerXEqualToView(self.tabBar).bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)
+    .widthIs(ZZWidth / self.viewControllers.count)
+    .heightIs(64);
+    
+    //核心代码:传入的按钮就直接作为中间的按钮了,给了一个回调,可以获取按钮的点击事件,请注意block的循环引用!
+    [self.tabBar zz_setCenterButtonWithButton:button selectIndexWhenThisButtonClick:1 callBack:^{
+        
+    }];
     
 }
 
-//-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-//    NSLog(@"item.title === %@",item.title);
-//}
+
+#pragma mark - tabbar高度适配iPhone X,并非框架用法必须,但屏幕适配你也少不了!
+-(void)viewWillLayoutSubviews{
+    int height = UIScreen.mainScreen.bounds.size.height > 736 ? 83 : 49;
+    CGRect tabFrame = self.tabBar.frame;tabFrame.size.height = height;
+    tabFrame.origin.y = self.view.frame.size.height - height;
+    self.tabBar.frame = tabFrame;self.tabBar.barStyle = UIBarStyleDefault;
+}
 
 
--(void)demo1{
+#pragma mark - tabbarController的基础设置,这里你可以有你自己的设置.
+-(void)setupTabbarController{
     self.titleNames = @[@"首页",@"",@"我的"];
     self.imageNames = @[@"icon_information1",@"",@"icon_my1"];
     self.selectedImageNames = @[@"icon_information2",@"",@"icon_my2"];
@@ -79,39 +107,7 @@
     }
     self.tabBar.translucent = NO;self.viewControllers = vcArr;[self setSelectedIndex:0];
     self.tabBar.backgroundImage = [UIImage imageNamed:@"tabbarImage"];
-    
-    //实现:设置超出的按钮(其实就是写一个按钮覆盖到self.tabBar上)
-    //核心代码1:自己实现一个按钮,样式根据需求而来
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.tabBar addSubview:button];
-    [button setImage:[UIImage imageNamed:@"huibaowdj"] forState:(UIControlStateNormal)];
-    [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
-    button.backgroundColor = [UIColor darkGrayColor];
-    button.sd_layout.centerXEqualToView(self.tabBar).bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)
-    .widthIs(ZZWidth / self.viewControllers.count)
-    .heightIs(64);
-    [button addTarget:self action:@selector(centerButtonClick) forControlEvents:(UIControlEventTouchUpInside)];
-    
-    //核心代码2:把self.tabBar.zz_centerButton指向你的按钮即可.
-    self.tabBar.zz_centerButton = button;
 }
-
-//核心代码3:处理按钮的点击事件
--(void)centerButtonClick{
-    self.tabBar.zz_centerButton.selected = YES;
-    [self setSelectedIndex:1];
-}
-
-//tabbar高度适配iPhone X
--(void)viewWillLayoutSubviews{
-    int height = UIScreen.mainScreen.bounds.size.height > 736 ? 83 : 49;
-    CGRect tabFrame = self.tabBar.frame;tabFrame.size.height = height;
-    tabFrame.origin.y = self.view.frame.size.height - height;
-    self.tabBar.frame = tabFrame;self.tabBar.barStyle = UIBarStyleDefault;
-}
-
-
-
 
 
 

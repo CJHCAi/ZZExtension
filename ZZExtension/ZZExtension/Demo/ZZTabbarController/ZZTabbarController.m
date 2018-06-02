@@ -44,7 +44,7 @@
 -(void)demo{
     
     //1.这里是获取一个按钮,我这里通过type给你几个不同的选项看效果,具体的样式你根据自己的需求去写!
-    UIButton *button = [self getButtonWithType:1];
+    UIButton *button = [self getButtonWithType:2];
     
     //2.核心代码:普通效果:传入的按钮就直接作为中间的按钮了,给了一个回调,可以获取按钮的点击事件,请注意block的循环引用!
     [self.tabBar zz_setCenterButtonWithButton:button selectIndexWhenThisButtonClick:1 callBack:nil];
@@ -69,20 +69,38 @@
         [button setImage:[UIImage imageNamed:@"huibaowdj"] forState:(UIControlStateNormal)];
         [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
         button.backgroundColor = [UIColor darkGrayColor];
-        button.sd_layout.centerXEqualToView(self.tabBar).bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)
-        .widthIs(64)//.widthIs(ZZWidth / self.viewControllers.count)
-        .heightIs(64);
+        //这一句使用的是第三方的布局框架->SDAutoLayout,非常好用
+        //GitHub:https://github.com/gsdios/SDAutoLayout
+        button.sd_layout
+        .bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)//底部距离self.tabBar的距离为ZZSafeAreaBottomHeight
+        .centerXEqualToView(self.tabBar)//横坐标和self.tabBar相同
+        .widthIs(64).heightIs(64);//宽高都是64
         button.layer.cornerRadius = 32;
         button.clipsToBounds = YES;
     }else if (type == 2){
         button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.tabBar addSubview:button];
+        [button setTitle:@"地图" forState:(UIControlStateNormal)];
+        [button setTitle:@"地图" forState:(UIControlStateSelected)];
+        [button setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        [button setTitleColor:[UIColor orangeColor] forState:(UIControlStateSelected)];
         [button setImage:[UIImage imageNamed:@"huibaowdj"] forState:(UIControlStateNormal)];
         [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
-        button.backgroundColor = [UIColor clearColor];
-        button.sd_layout.centerXEqualToView(self.tabBar).bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)
-        .widthIs(ZZWidth / self.viewControllers.count)
-        .heightIs(64);
+        button.titleLabel.font = [UIFont systemFontOfSize:10];
+        button.backgroundColor = [UIColor darkGrayColor];
+        //这一句使用的是第三方的布局框架->SDAutoLayout,非常好用
+        //GitHub:https://github.com/gsdios/SDAutoLayout
+        button.sd_layout
+        .bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)//底部距离self.tabBar的距离为ZZSafeAreaBottomHeight
+        .centerXEqualToView(self.tabBar)//横坐标和self.tabBar相同
+        .widthIs(64).heightIs(64);//宽高都是64
+        
+        //设置图片和文字的位置,你可以根据你自己的需求算
+        UIImage *image = [UIImage imageNamed:@"huibaowdj"];
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, (64 - image.size.width) / 2 , 30, (64 - image.size.width) / 2);
+        button.titleEdgeInsets = UIEdgeInsetsMake(44, -2, 0, 21);//四个值按顺序是:上坐下右
+        
+        
     }
     return button;
 }

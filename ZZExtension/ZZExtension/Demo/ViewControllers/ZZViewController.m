@@ -68,7 +68,8 @@
     }
     
     if (button.tag == 3) {//改变根视图
-        //ZZPresentedVC *vc = [[ZZPresentedVC alloc] init];
+//        ZZPresentedVC *vc = [[ZZPresentedVC alloc] init];
+//        ZZKeyWindow.rootViewController = vc;
         ZZTabbarController *tabbbar = [[ZZTabbarController alloc] init];
         ZZKeyWindow.rootViewController = tabbbar;
     }

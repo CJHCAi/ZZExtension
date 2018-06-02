@@ -38,7 +38,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     [self.zz_centerButton addTarget:self action:@selector(zz_centerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     //3.事件监听(如果这里报错,说明你在main函数中修改了AppDelegate为其他类,在这里做对应修改即可!)
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [app.window addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"tabbarController"];
+    [app.window addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"rootViewController"];
 }
 
 #pragma mark - kvo的监听,用于获取根视图处理和如果是根视图是tabbarController的处理
@@ -61,17 +61,15 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     UIViewController *lastRootVC = change[@"old"];
     if ([lastRootVC isKindOfClass:[UITabBarController class]]) {
         UITabBarController *lastTabbarController = (UITabBarController *)lastRootVC;
-        NSLog(@"lastTabbarController === %@",lastTabbarController);
-        //NSLog(@"[lastTabbarController observationInfo] === %@",[lastTabbarController observationInfo]);
-        [lastTabbarController removeObserver:self forKeyPath:@"selectedViewController"];
-        [ZZKeyWindow removeObserver:self forKeyPath:@"rootViewController"];
+        [ZZKeyWindow removeObserver:lastTabbarController.tabBar forKeyPath:@"rootViewController"];
+        [lastTabbarController removeObserver:lastTabbarController.tabBar forKeyPath:@"selectedViewController"];
     }
     
     //3.这里是处理根视图处理器被更新赋值的监听(添加新的tabbarController的监听)
     UIViewController *rootVC = change[@"new"];
     if ([rootVC isKindOfClass:[UITabBarController class]]) {
         UITabBarController *tabbarController = (UITabBarController *)rootVC;
-        [tabbarController addObserver:self forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"selectedViewController"];
+        [tabbarController addObserver:tabbarController.tabBar forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"selectedViewController"];
     }
 
 }

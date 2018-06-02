@@ -19,9 +19,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor lightGrayColor];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.bounds = CGRectMake(0, 0, 180, 60);
+    button.center = self.view.center;
+    [self.view addSubview:button];
+    button.backgroundColor = [UIColor redColor];
+    [button setTitle:@"换回根视图" forState:(UIControlStateNormal)];
+    [button addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+-(void)buttonClick{
     ZZKeyWindow.rootViewController = [[ZZTabbarController alloc] init];
 }
 

@@ -95,8 +95,8 @@
 
 #pragma mark - tabbarController的基础设置,这里你可以有你自己的设置.
 -(void)setupTabbarController{
-    self.imageNames = @[@"icon_information1",@"",@"icon_my1"];
-    self.selectedImageNames = @[@"icon_information2",@"",@"icon_my2"];
+    self.imageNames = @[@"icon_information1",@"icon_my1",@"icon_my1"];
+    self.selectedImageNames = @[@"icon_information2",@"icon_my2",@"icon_my2"];
     
     NSMutableArray *vcArr = [[NSMutableArray alloc] init];
     
@@ -127,7 +127,8 @@
         vc.tabBarItem.selectedImage = [[UIImage imageNamed:self.selectedImageNames[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }
     self.tabBar.translucent = NO;self.viewControllers = vcArr;[self setSelectedIndex:0];
-    self.tabBar.backgroundImage = [UIImage imageNamed:@"tabbarImage"];
+    self.tabBar.backgroundImage = [UIImage imageNamed:@"tabbarImage"];//修改tabbar的背景图片
+    self.tabBar.shadowImage = [[UIImage alloc] init];//去掉tabbar上面的横线
 }
 
 

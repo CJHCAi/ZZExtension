@@ -117,8 +117,8 @@
 		08A01EFE20B28D0000EE4004 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				08A4CCB120B291DA00D784ED /* ZZViewController */,
 				08A4CCB020B291C600D784ED /* ZZTabbarController */,
+				08A4CCB120B291DA00D784ED /* ZZViewController */,
 			);
 			path = Demo;
 			sourceTree = "<group>";

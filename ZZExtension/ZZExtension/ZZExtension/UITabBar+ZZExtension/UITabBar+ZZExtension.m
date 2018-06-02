@@ -43,7 +43,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
 
 #pragma mark - kvo的监听,用于获取根视图处理和如果是根视图是tabbarController的处理
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    NSLog(@"change === %@",change);
+    
     NSString *contextString = (__bridge NSString *)context;
     
     //1.这里是处理根视图是tabbarController是selectedViewController改变的监听
@@ -67,12 +67,11 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     
     //3.这里是处理根视图处理器被更新赋值的监听(添加新的tabbarController的监听)
     UIViewController *rootVC = change[@"new"];
-    if (![rootVC isKindOfClass:[UITabBarController class]]) {
-        return;
+    if ([rootVC isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabbarController = (UITabBarController *)rootVC;
+        [tabbarController addObserver:self forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew) context:@"selectedViewController"];
     }
-    UITabBarController *tabbarController = (UITabBarController *)rootVC;
-    [tabbarController addObserver:self forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew) context:@"selectedViewController"];
-    
+
 }
 
 -(void)dealloc{

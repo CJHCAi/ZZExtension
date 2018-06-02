@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				08A4CCB020B291C600D784ED /* ZZTabbarController */,
-				08A4CCB120B291DA00D784ED /* ZZViewController */,
+				08A4CCB120B291DA00D784ED /* ViewControllers */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -132,7 +132,7 @@
 			path = ZZTabbarController;
 			sourceTree = "<group>";
 		};
-		08A4CCB120B291DA00D784ED /* ZZViewController */ = {
+		08A4CCB120B291DA00D784ED /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				08A4CCB220B291F900D784ED /* ZZViewController.h */,
@@ -140,7 +140,7 @@
 				08B4052C20C2378B00C10D4B /* ZZPresentedVC.h */,
 				08B4052D20C2378B00C10D4B /* ZZPresentedVC.m */,
 			);
-			path = ZZViewController;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		7B2E845CB3ECE0D0CCE28547 /* Frameworks */ = {

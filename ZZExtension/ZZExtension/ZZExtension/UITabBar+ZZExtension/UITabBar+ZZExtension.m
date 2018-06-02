@@ -61,6 +61,8 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     UIViewController *lastRootVC = change[@"old"];
     if ([lastRootVC isKindOfClass:[UITabBarController class]]) {
         UITabBarController *lastTabbarController = (UITabBarController *)lastRootVC;
+        NSLog(@"lastTabbarController === %@",lastTabbarController);
+        //NSLog(@"[lastTabbarController observationInfo] === %@",[lastTabbarController observationInfo]);
         [lastTabbarController removeObserver:self forKeyPath:@"selectedViewController"];
         [ZZKeyWindow removeObserver:self forKeyPath:@"rootViewController"];
     }
@@ -69,7 +71,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     UIViewController *rootVC = change[@"new"];
     if ([rootVC isKindOfClass:[UITabBarController class]]) {
         UITabBarController *tabbarController = (UITabBarController *)rootVC;
-        [tabbarController addObserver:self forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew) context:@"selectedViewController"];
+        [tabbarController addObserver:self forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"selectedViewController"];
     }
 
 }

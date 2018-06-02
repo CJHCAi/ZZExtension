@@ -54,8 +54,8 @@
     
     if (button.tag == 1) {//push效果
         ZZViewController *vc = [[ZZViewController alloc] init];
-        //首页的隐藏tabbar,其他的不隐藏(用来看效果的,证明可用,一般不会用到这个逻辑)
-        if ([self.title isEqualToString:@"首页"]) {
+        //"我的"首页隐藏tabbar,其他的不隐藏(用来看效果的,证明可用,一般不会用到这个逻辑)
+        if ([self.title isEqualToString:@"我的"]) {
             vc.hidesBottomBarWhenPushed = YES;
         }
         vc.view.backgroundColor = [UIColor blueColor];
@@ -68,8 +68,6 @@
     }
     
     if (button.tag == 3) {//改变根视图
-//        ZZPresentedVC *vc = [[ZZPresentedVC alloc] init];
-//        ZZKeyWindow.rootViewController = vc;
         ZZTabbarController *tabbbar = [[ZZTabbarController alloc] init];
         ZZKeyWindow.rootViewController = tabbbar;
     }

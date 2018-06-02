@@ -48,8 +48,8 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     
     NSString *contextString = (__bridge NSString *)context;
     
-    //1.这里是处理根视图是tabbarController是selectedViewController改变的监听
-    if ([contextString isEqualToString:@"selectedViewController"] || [contextString isEqualToString:@"selectedViewController"]) {
+    //1.这里是处理根视图是tabbarController是selectedViewController/selectedIndex改变的监听
+    if ([contextString isEqualToString:@"selectedViewController"] || [contextString isEqualToString:@"selectedIndex"]) {
         if ([ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {
             UITabBarController *tabbrController = (UITabBarController *)ZZKeyWindow.rootViewController;
             self.zz_centerButton.selected = tabbrController.selectedIndex == self.zz_boundIndex;
@@ -57,7 +57,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
         return;
     }
     
-    //2.这里是处理根视图处理器被更新赋值的监听(释放老的tabbarController的监听)
+    //3.这里是处理根视图处理器被更新赋值的监听(释放老的tabbarController的监听)
     UIViewController *lastRootVC = change[@"old"];
     if ([lastRootVC isKindOfClass:[UITabBarController class]]) {
         UITabBarController *lastTabbarController = (UITabBarController *)lastRootVC;
@@ -66,12 +66,18 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
         [lastTabbarController removeObserver:lastTabbarController.tabBar forKeyPath:@"selectedViewController"];
     }
     
-    //3.这里是处理根视图处理器被更新赋值的监听(添加新的tabbarController的监听)
+    //4.这里是处理根视图处理器被更新赋值的监听(添加新的tabbarController的监听)
     UIViewController *rootVC = change[@"new"];
     if ([rootVC isKindOfClass:[UITabBarController class]]) {
         UITabBarController *tabbarController = (UITabBarController *)rootVC;
         [tabbarController addObserver:tabbarController.tabBar forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"selectedViewController"];
         [tabbarController addObserver:tabbarController.tabBar forKeyPath:@"selectedIndex" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"selectedIndex"];
+        
+        //5.需要用一个按钮遮盖tabbar上加了按钮的item,否则遮盖不完的地方仍然可以点击
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [tabbarController.tabBar insertSubview:button belowSubview:self.zz_centerButton];
+        button.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.size.height);
+        
     }
 
 }

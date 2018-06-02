@@ -121,8 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				0860EC6620B69F9C000A3C87 /* ZZExtension.h */,
-				0830D9E320C2A5F9006621E6 /* UIButton+ZZExtension */,
 				0860EC6520B69CB0000A3C87 /* UITabBar+ZZExtension */,
+				0830D9E320C2A5F9006621E6 /* UIButton+ZZExtension */,
 			);
 			path = ZZExtension;
 			sourceTree = "<group>";

@@ -70,8 +70,10 @@
         [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
         button.backgroundColor = [UIColor darkGrayColor];
         button.sd_layout.centerXEqualToView(self.tabBar).bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)
-        .widthIs(ZZWidth / self.viewControllers.count)
+        .widthIs(64)//.widthIs(ZZWidth / self.viewControllers.count)
         .heightIs(64);
+        button.layer.cornerRadius = 32;
+        button.clipsToBounds = YES;
     }else if (type == 2){
         button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.tabBar addSubview:button];
@@ -95,8 +97,8 @@
 
 #pragma mark - tabbarController的基础设置,这里你可以有你自己的设置.
 -(void)setupTabbarController{
-    self.imageNames = @[@"icon_information1",@"icon_my1",@"icon_my1"];
-    self.selectedImageNames = @[@"icon_information2",@"icon_my2",@"icon_my2"];
+    self.imageNames = @[@"icon_information1",@"",@"icon_my1"];
+    self.selectedImageNames = @[@"icon_information2",@"",@"icon_my2"];
     
     NSMutableArray *vcArr = [[NSMutableArray alloc] init];
     

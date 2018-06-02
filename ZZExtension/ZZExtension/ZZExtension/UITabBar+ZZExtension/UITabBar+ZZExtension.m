@@ -34,8 +34,10 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     self.zz_centerButton    = button;
     self.zz_boundIndex      = boundIndex;
     self.zz_callBack        = callBack;
+    
     //2.方法绑定
     [self.zz_centerButton addTarget:self action:@selector(zz_centerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     //3.事件监听(如果这里报错,说明你在main函数中修改了AppDelegate为其他类,在这里做对应修改即可!)
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"rootViewController"];
@@ -50,9 +52,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     if ([contextString isEqualToString:@"selectedViewController"]) {
         if ([ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {
             UITabBarController *tabbrController = (UITabBarController *)ZZKeyWindow.rootViewController;
-            if (tabbrController.selectedIndex != self.zz_boundIndex) {
-                self.zz_centerButton.selected = NO;
-            }
+            self.zz_centerButton.selected = tabbrController.selectedIndex == self.zz_boundIndex;
         }
         return;
     }

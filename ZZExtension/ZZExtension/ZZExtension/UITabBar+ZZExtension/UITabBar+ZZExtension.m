@@ -43,35 +43,40 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
 
 #pragma mark - kvo的监听,用于获取根视图处理和如果是根视图是tabbarController的处理
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    
+    NSLog(@"change === %@",change);
     NSString *contextString = (__bridge NSString *)context;
     
-    if ([contextString isEqualToString:@"tabbarController"]) {
-        //这里是处理根视图处理器被更新赋值的监听
-        UIViewController *rootVC = change[@"new"];
-        if (![rootVC isKindOfClass:[UITabBarController class]]) {
-            return;
-        }
-        UITabBarController *tabbarController = (UITabBarController *)rootVC;
-        [tabbarController addObserver:self forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"selectedViewController"];
-    }else{
-        //这里是处理根视图是tabbarController是selectedViewController改变的监听
+    //1.这里是处理根视图是tabbarController是selectedViewController改变的监听
+    if ([contextString isEqualToString:@"selectedViewController"]) {
         if ([ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {
             UITabBarController *tabbrController = (UITabBarController *)ZZKeyWindow.rootViewController;
             if (tabbrController.selectedIndex != self.zz_boundIndex) {
                 self.zz_centerButton.selected = NO;
             }
         }
+        return;
     }
+    
+    //2.这里是处理根视图处理器被更新赋值的监听(释放老的tabbarController的监听)
+    UIViewController *lastRootVC = change[@"old"];
+    if ([lastRootVC isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *lastTabbarController = (UITabBarController *)lastRootVC;
+        [lastTabbarController removeObserver:self forKeyPath:@"selectedViewController"];
+        [ZZKeyWindow removeObserver:self forKeyPath:@"rootViewController"];
+    }
+    
+    //3.这里是处理根视图处理器被更新赋值的监听(添加新的tabbarController的监听)
+    UIViewController *rootVC = change[@"new"];
+    if (![rootVC isKindOfClass:[UITabBarController class]]) {
+        return;
+    }
+    UITabBarController *tabbarController = (UITabBarController *)rootVC;
+    [tabbarController addObserver:self forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew) context:@"selectedViewController"];
     
 }
 
-#pragma mark - 取消kvo监听
 -(void)dealloc{
-    if ([ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {
-        [ZZKeyWindow.rootViewController removeObserver:self forKeyPath:@"selectedViewController"];
-    }
-    [ZZKeyWindow removeObserver:self forKeyPath:@"rootViewController"];
+    NSLog(@"一个tabbarController的对象释放了(若修改了根视图控制器则为正常)!");
 }
 
 #pragma mark - 类别中实现父类的方法会被优先调用

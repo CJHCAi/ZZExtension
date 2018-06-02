@@ -6,6 +6,8 @@
 //  Copyright © 2018年 刘猛. All rights reserved.
 //
 
+#import "ZZExtension.h"
+#import "ZZPresentedVC.h"
 #import "ZZViewController.h"
 
 @interface ZZViewController ()
@@ -17,6 +19,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.bounds = CGRectMake(0, 0, 180, 60);
+    button.center = self.view.center;
+    [self.view addSubview:button];
+    button.backgroundColor = [UIColor darkGrayColor];
+    [button setTitle:@"改变根视图" forState:(UIControlStateNormal)];
+    [button addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+-(void)buttonClick{
+    ZZPresentedVC *vc = [[ZZPresentedVC alloc] init];
+    ZZKeyWindow.rootViewController = vc;
 }
 
 #pragma mark - 这里的代码没有看的必要,就是为了demo的效果展示做的一些容错.

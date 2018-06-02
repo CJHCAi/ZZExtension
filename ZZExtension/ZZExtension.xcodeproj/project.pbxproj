@@ -15,6 +15,7 @@
 		08A4CCAB20B28D8800D784ED /* UITabBar+ZZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A4CCAA20B28D8800D784ED /* UITabBar+ZZExtension.m */; };
 		08A4CCAF20B291BB00D784ED /* ZZTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A4CCAE20B291BB00D784ED /* ZZTabbarController.m */; };
 		08A4CCB420B291F900D784ED /* ZZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A4CCB320B291F900D784ED /* ZZViewController.m */; };
+		08B4052E20C2378B00C10D4B /* ZZPresentedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B4052D20C2378B00C10D4B /* ZZPresentedVC.m */; };
 		193076ECF7139B0426E4D8EA /* libPods-ZZExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFD0A8E5D8C4C1968A4BD41 /* libPods-ZZExtension.a */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,8 @@
 		08A4CCAE20B291BB00D784ED /* ZZTabbarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZTabbarController.m; sourceTree = "<group>"; };
 		08A4CCB220B291F900D784ED /* ZZViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZViewController.h; sourceTree = "<group>"; };
 		08A4CCB320B291F900D784ED /* ZZViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZViewController.m; sourceTree = "<group>"; };
+		08B4052C20C2378B00C10D4B /* ZZPresentedVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZZPresentedVC.h; sourceTree = "<group>"; };
+		08B4052D20C2378B00C10D4B /* ZZPresentedVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZZPresentedVC.m; sourceTree = "<group>"; };
 		172378A41B65F5F198FBBD9F /* Pods-ZZExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZZExtension/Pods-ZZExtension.release.xcconfig"; sourceTree = "<group>"; };
 		5F9DE1FF4720BD153146B9A6 /* Pods-ZZExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZZExtension/Pods-ZZExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		FAFD0A8E5D8C4C1968A4BD41 /* libPods-ZZExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZZExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +109,6 @@
 			isa = PBXGroup;
 			children = (
 				0860EC6620B69F9C000A3C87 /* ZZExtension.h */,
-				08B4052B20C193AE00C10D4B /* UITabbarController+ZZExtension */,
 				0860EC6520B69CB0000A3C87 /* UITabBar+ZZExtension */,
 			);
 			path = ZZExtension;
@@ -135,15 +137,10 @@
 			children = (
 				08A4CCB220B291F900D784ED /* ZZViewController.h */,
 				08A4CCB320B291F900D784ED /* ZZViewController.m */,
+				08B4052C20C2378B00C10D4B /* ZZPresentedVC.h */,
+				08B4052D20C2378B00C10D4B /* ZZPresentedVC.m */,
 			);
 			path = ZZViewController;
-			sourceTree = "<group>";
-		};
-		08B4052B20C193AE00C10D4B /* UITabbarController+ZZExtension */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "UITabbarController+ZZExtension";
 			sourceTree = "<group>";
 		};
 		7B2E845CB3ECE0D0CCE28547 /* Frameworks */ = {
@@ -256,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08A4CCAF20B291BB00D784ED /* ZZTabbarController.m in Sources */,
+				08B4052E20C2378B00C10D4B /* ZZPresentedVC.m in Sources */,
 				08A01EF520B28BC100EE4004 /* main.m in Sources */,
 				08A01EE720B28BC000EE4004 /* AppDelegate.m in Sources */,
 				08A4CCB420B291F900D784ED /* ZZViewController.m in Sources */,

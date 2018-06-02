@@ -49,7 +49,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     NSString *contextString = (__bridge NSString *)context;
     
     //1.这里是处理根视图是tabbarController是selectedViewController改变的监听
-    if ([contextString isEqualToString:@"selectedViewController"]) {
+    if ([contextString isEqualToString:@"selectedViewController"] || [contextString isEqualToString:@"selectedViewController"]) {
         if ([ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {
             UITabBarController *tabbrController = (UITabBarController *)ZZKeyWindow.rootViewController;
             self.zz_centerButton.selected = tabbrController.selectedIndex == self.zz_boundIndex;
@@ -62,6 +62,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     if ([lastRootVC isKindOfClass:[UITabBarController class]]) {
         UITabBarController *lastTabbarController = (UITabBarController *)lastRootVC;
         [ZZKeyWindow removeObserver:lastTabbarController.tabBar forKeyPath:@"rootViewController"];
+        [lastTabbarController removeObserver:lastTabbarController.tabBar forKeyPath:@"selectedIndex"];
         [lastTabbarController removeObserver:lastTabbarController.tabBar forKeyPath:@"selectedViewController"];
     }
     
@@ -70,6 +71,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     if ([rootVC isKindOfClass:[UITabBarController class]]) {
         UITabBarController *tabbarController = (UITabBarController *)rootVC;
         [tabbarController addObserver:tabbarController.tabBar forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"selectedViewController"];
+        [tabbarController addObserver:tabbarController.tabBar forKeyPath:@"selectedIndex" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"selectedIndex"];
     }
 
 }

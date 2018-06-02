@@ -88,45 +88,50 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
 
 #pragma mark - 类别中实现父类的方法会被优先调用
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    
+    //1.判断是否在按钮的范围
     UIView *view = [super hitTest:point withEvent:event];
-    
     if (view != nil) {return view;}
-    
     CGPoint tempoint = [self.zz_centerButton convertPoint:point fromView:self];
-    if (CGRectContainsPoint(self.zz_centerButton.bounds, tempoint)){
+    
+    if (!CGRectContainsPoint(self.zz_centerButton.bounds, tempoint)){
+        return view;
+    }
+    
+    //1.2处理超过父视图圆角部分点击(不接受!)
+    float distanceX = fabs(self.zz_centerButton.bounds.size.width / 2 - tempoint.x - 0.0);
+    float distanceY = fabs(self.zz_centerButton.bounds.size.height / 2 - tempoint.y - 0.0);
+    if (distanceX * distanceX + distanceY * distanceY > self.zz_centerButton.layer.cornerRadius * self.zz_centerButton.layer.cornerRadius) {
+        return view;
+    }
+    
+    //2.获取根视图
+    UIViewController *rootVC = [[UIApplication sharedApplication].keyWindow rootViewController];
+    
+    //3.判断根视图类型
+    if (![rootVC isKindOfClass:[UITabBarController class]]) {return view;}//如果是不是UITabBarController或其子类直接返回即可
+    
+    //4.1判断tabbarController的当前控制器类型
+    UITabBarController *tabbar = (UITabBarController *)rootVC;
+    UIViewController *currentVC = [tabbar selectedViewController];
+    
+    //4.2如果当前控制器是导航控制器或其子类
+    if ([currentVC isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *nav = (UINavigationController *)currentVC;
         
-        //1.获取根视图
-        UIViewController *rootVC = [[UIApplication sharedApplication].keyWindow rootViewController];
-        
-        //2.判断根视图类型
-        if (![rootVC isKindOfClass:[UITabBarController class]]) {return view;}//如果是不是UITabBarController或其子类直接返回即可
-        
-        //3.1判断tabbarController的当前控制器类型
-        UITabBarController *tabbar = (UITabBarController *)rootVC;
-        UIViewController *currentVC = [tabbar selectedViewController];
-        
-        //3.2如果当前控制器是导航控制器或其子类
-        if ([currentVC isKindOfClass:[UINavigationController class]]) {
-            UINavigationController *nav = (UINavigationController *)currentVC;
-            
-            //3.3如果导航控制器不止有一个控制器,判断控制器是否有隐藏tabbar的操作,如果有责不接受点击中间按钮的事件
-            BOOL result = YES;
-            if (nav.viewControllers.count > 1) {
-                for (UIViewController *vc in nav.viewControllers) {
-                    if (vc.hidesBottomBarWhenPushed == YES) {result = NO;}
-                }
-                if (result) {view = self.zz_centerButton;}
-            }else{
-                view = self.zz_centerButton;
+        //4.3如果导航控制器不止有一个控制器,判断控制器是否有隐藏tabbar的操作,如果有责不接受点击中间按钮的事件
+        BOOL result = YES;
+        if (nav.viewControllers.count > 1) {
+            for (UIViewController *vc in nav.viewControllers) {
+                if (vc.hidesBottomBarWhenPushed == YES) {result = NO;}
             }
-            
-        }else if ([currentVC isKindOfClass:[UIViewController class]]) {
+            if (result) {view = self.zz_centerButton;}
+        }else{
             view = self.zz_centerButton;
         }
         
+    }else if ([currentVC isKindOfClass:[UIViewController class]]) {
+        view = self.zz_centerButton;
     }
-    
     return view;
 }
 

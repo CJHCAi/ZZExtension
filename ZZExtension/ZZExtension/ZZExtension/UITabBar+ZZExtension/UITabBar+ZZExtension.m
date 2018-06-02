@@ -6,6 +6,8 @@
 //  Copyright © 2018年 刘猛. All rights reserved.
 //
 
+#import "AppDelegate.h"
+#import "ZZExtension.h"
 #import <objc/message.h>
 #import "UITabBar+ZZExtension.h"
 
@@ -28,10 +30,48 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
 
 #pragma mark - 对外提供的初始化方法
 -(void)zz_setCenterButtonWithButton:(UIButton *)button selectIndexWhenThisButtonClick:(int)boundIndex callBack:(zz_tabbarCenterButtonClickCallBack)callBack{
+    //1.参数保留
     self.zz_centerButton    = button;
     self.zz_boundIndex      = boundIndex;
     self.zz_callBack        = callBack;
+    //2.方法绑定
     [self.zz_centerButton addTarget:self action:@selector(zz_centerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    //3.事件监听(如果这里报错,说明你在main函数中修改了AppDelegate为其他类,在这里做对应修改即可!)
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [app.window addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"tabbarController"];
+}
+
+#pragma mark - kvo的监听,用于获取根视图处理和如果是根视图是tabbarController的处理
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    
+    NSString *contextString = (__bridge NSString *)context;
+    
+    if ([contextString isEqualToString:@"tabbarController"]) {
+        //这里是处理根视图处理器被更新赋值的监听
+        UIViewController *rootVC = change[@"new"];
+        if (![rootVC isKindOfClass:[UITabBarController class]]) {
+            return;
+        }
+        UITabBarController *tabbarController = (UITabBarController *)rootVC;
+        [tabbarController addObserver:self forKeyPath:@"selectedViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"selectedViewController"];
+    }else{
+        //这里是处理根视图是tabbarController是selectedViewController改变的监听
+        if ([ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {
+            UITabBarController *tabbrController = (UITabBarController *)ZZKeyWindow.rootViewController;
+            if (tabbrController.selectedIndex != self.zz_boundIndex) {
+                self.zz_centerButton.selected = NO;
+            }
+        }
+    }
+    
+}
+
+#pragma mark - 取消kvo监听
+-(void)dealloc{
+    if ([ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {
+        [ZZKeyWindow.rootViewController removeObserver:self forKeyPath:@"selectedViewController"];
+    }
+    [ZZKeyWindow removeObserver:self forKeyPath:@"rootViewController"];
 }
 
 #pragma mark - 类别中实现父类的方法会被优先调用
@@ -109,7 +149,6 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
 -(UIButton *)zz_centerButton{
     return objc_getAssociatedObject(self, &ZZ_CENTERBUTTON);
 }
-
 
 -(void)setZz_boundIndex:(int)zz_boundIndex{
     objc_setAssociatedObject(self, &ZZ_BOUNDINDEX, @(zz_boundIndex), OBJC_ASSOCIATION_RETAIN);

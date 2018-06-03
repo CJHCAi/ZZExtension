@@ -69,14 +69,6 @@
         [button setImage:[UIImage imageNamed:@"huibaowdj"] forState:(UIControlStateNormal)];
         [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
         button.backgroundColor = [UIColor darkGrayColor];
-        //这一句使用的是第三方的布局框架->SDAutoLayout,非常好用
-        //GitHub:https://github.com/gsdios/SDAutoLayout
-        button.sd_layout
-        .bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)//底部距离self.tabBar的距离为ZZSafeAreaBottomHeight
-        .centerXEqualToView(self.tabBar)//横坐标和self.tabBar相同
-        .widthIs(64).heightIs(64);//宽高都是64
-        button.layer.cornerRadius = 32;
-        button.clipsToBounds = YES;
     }else if (type == 2){
         button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.tabBar addSubview:button];
@@ -88,21 +80,28 @@
         [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
         button.titleLabel.font = [UIFont systemFontOfSize:10];
         button.backgroundColor = [UIColor darkGrayColor];
-        //这一句使用的是第三方的布局框架->SDAutoLayout,非常好用
-        //GitHub:https://github.com/gsdios/SDAutoLayout
-        button.sd_layout
-        .bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)//底部距离self.tabBar的距离为ZZSafeAreaBottomHeight
-        .centerXEqualToView(self.tabBar)//横坐标和self.tabBar相同
-        .widthIs(64).heightIs(64);//宽高都是64
-        
         //设置图片和文字的位置,你可以根据你自己的需求算
         UIImage *image = [UIImage imageNamed:@"huibaowdj"];
         button.imageEdgeInsets = UIEdgeInsetsMake(0, (64 - image.size.width) / 2 , 30, (64 - image.size.width) / 2);
         button.titleEdgeInsets = UIEdgeInsetsMake(44, -2, 0, 21);//四个值按顺序是:上坐下右
-        
-        
     }
+    
+    //这一句使用的是第三方的布局框架->SDAutoLayout,非常好用
+    //GitHub:https://github.com/gsdios/SDAutoLayout
+    button.sd_layout
+    .bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)//底部距离self.tabBar的距离为ZZSafeAreaBottomHeight
+    .centerXEqualToView(self.tabBar)//横坐标和self.tabBar相同
+    .widthIs(64).heightIs(64);//宽高都是64
+    button.layer.cornerRadius = 16;
+    button.clipsToBounds = YES;
+    
+    [button addTarget:self action:@selector(preventFlicker:) forControlEvents:UIControlEventAllTouchEvents];
     return button;
+}
+
+//取消按钮的点击高亮效果
+-(void)preventFlicker:(UIButton *)button{
+    button.highlighted = NO;
 }
 
 #pragma mark - tabbar高度适配iPhone X,并非框架用法必须,但屏幕适配你也少不了!

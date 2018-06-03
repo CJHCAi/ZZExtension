@@ -97,10 +97,12 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
         return view;
     }
     
-    //1.2处理超过父视图圆角部分点击(不接受!)
+    //1.2处理超过父视图圆角部分点击(不接受!)注:如果是椭圆形会有问题
     float distanceX = fabs(self.zz_centerButton.bounds.size.width / 2 - tempoint.x - 0.0);
     float distanceY = fabs(self.zz_centerButton.bounds.size.height / 2 - tempoint.y - 0.0);
-    if (distanceX * distanceX + distanceY * distanceY > self.zz_centerButton.layer.cornerRadius * self.zz_centerButton.layer.cornerRadius) {
+    float chordX = self.zz_centerButton.layer.cornerRadius;
+    float chordY = self.zz_centerButton.layer.cornerRadius;
+    if ((distanceX * distanceX + distanceY * distanceY) > (chordX * chordX + chordY * chordY)) {
         return view;
     }
     

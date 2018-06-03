@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0830D9E620C2A5F9006621E6 /* UIButton+ZZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0830D9E520C2A5F9006621E6 /* UIButton+ZZExtension.m */; };
 		08A01EE720B28BC000EE4004 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A01EE620B28BC000EE4004 /* AppDelegate.m */; };
 		08A01EED20B28BC000EE4004 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A01EEB20B28BC000EE4004 /* Main.storyboard */; };
 		08A01EEF20B28BC100EE4004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A01EEE20B28BC100EE4004 /* Assets.xcassets */; };
@@ -21,8 +20,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0830D9E420C2A5F9006621E6 /* UIButton+ZZExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ZZExtension.h"; sourceTree = "<group>"; };
-		0830D9E520C2A5F9006621E6 /* UIButton+ZZExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ZZExtension.m"; sourceTree = "<group>"; };
 		0860EC6620B69F9C000A3C87 /* ZZExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZExtension.h; sourceTree = "<group>"; };
 		08A01EE220B28BC000EE4004 /* ZZExtension.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZZExtension.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08A01EE520B28BC000EE4004 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -57,15 +54,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0830D9E320C2A5F9006621E6 /* UIButton+ZZExtension */ = {
-			isa = PBXGroup;
-			children = (
-				0830D9E420C2A5F9006621E6 /* UIButton+ZZExtension.h */,
-				0830D9E520C2A5F9006621E6 /* UIButton+ZZExtension.m */,
-			);
-			path = "UIButton+ZZExtension";
-			sourceTree = "<group>";
-		};
 		0860EC6520B69CB0000A3C87 /* UITabBar+ZZExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,7 +110,6 @@
 			children = (
 				0860EC6620B69F9C000A3C87 /* ZZExtension.h */,
 				0860EC6520B69CB0000A3C87 /* UITabBar+ZZExtension */,
-				0830D9E320C2A5F9006621E6 /* UIButton+ZZExtension */,
 			);
 			path = ZZExtension;
 			sourceTree = "<group>";
@@ -267,7 +254,6 @@
 			files = (
 				08A4CCAF20B291BB00D784ED /* ZZTabbarController.m in Sources */,
 				08B4052E20C2378B00C10D4B /* ZZPresentedVC.m in Sources */,
-				0830D9E620C2A5F9006621E6 /* UIButton+ZZExtension.m in Sources */,
 				08A01EF520B28BC100EE4004 /* main.m in Sources */,
 				08A01EE720B28BC000EE4004 /* AppDelegate.m in Sources */,
 				08A4CCB420B291F900D784ED /* ZZViewController.m in Sources */,

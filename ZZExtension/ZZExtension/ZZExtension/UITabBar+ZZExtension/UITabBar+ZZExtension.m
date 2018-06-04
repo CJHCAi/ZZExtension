@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "ZZExtension.h"
 #import <objc/message.h>
-#import "UITabBar+ZZExtension.h"
 
 static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK,ZZ_COVERBUTTON;
 
@@ -59,10 +58,10 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK,ZZ_COVERB
     if ([[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortrait
         || [[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortraitUpsideDown) {
         //竖屏
-        self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.size.height);
+        self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.frame.size.height);
     } else {
         //横屏
-        self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.size.height);
+        self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.frame.size.height);
     }
 }
 
@@ -100,7 +99,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK,ZZ_COVERB
         self.zz_coverButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [tabbarController.tabBar insertSubview:self.zz_coverButton belowSubview:self.zz_centerButton];
         //self.zz_coverButton.backgroundColor = [UIColor whiteColor];
-        self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.size.height);
+        self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.frame.size.height);
         
     }
 

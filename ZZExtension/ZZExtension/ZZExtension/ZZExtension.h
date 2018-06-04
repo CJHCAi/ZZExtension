@@ -7,7 +7,6 @@
 //
 
 #import "UITabBar+ZZExtension.h"
-#import <SDAutoLayout/SDAutoLayout.h>
 
 //MARK:- UI常量
 #define AfW(x) x / 375.0 * ZZWidth

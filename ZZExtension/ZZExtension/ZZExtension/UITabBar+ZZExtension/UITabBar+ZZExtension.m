@@ -75,8 +75,8 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
         
         //5.需要用一个按钮遮盖tabbar上加了按钮的item,否则遮盖不完的地方仍然可以点击
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = [UIColor whiteColor];
         [tabbarController.tabBar insertSubview:button belowSubview:self.zz_centerButton];
+        //button.backgroundColor = [UIColor whiteColor];
         //button.sd_layout.centerXEqualToView(tabbarController.tabBar)
         button.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.size.height);
         
@@ -96,58 +96,40 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     UIView *view = [super hitTest:point withEvent:event];
     if (view != nil) {return view;}
     CGPoint tempoint = [self.zz_centerButton convertPoint:point fromView:self];
-    NSLog(@"point.x === %.2f,point.y === %.2f",point.x,point.y);
     if (!CGRectContainsPoint(self.zz_centerButton.bounds, tempoint)){
         return view;
     }
-    
     //1.2处理超过父视图圆角部分点击(不接受!)注:如果是椭圆形会有问题
     float width = self.zz_centerButton.bounds.size.width;
-    float height = self.zz_centerButton.bounds.size.height;
+    float originY = self.zz_centerButton.frame.origin.y;
     float circleX = 0.0,circleY = 0.0,distanceX = 0.0,distanceY = 0.0;
     float pointX = point.x - self.zz_centerButton.frame.origin.x;
     //1.2.1处理第一象限
-    if (pointX <= width / 2 && point.y <= height / 2) {
+    if (pointX <= width / 2 && point.y >= originY) {
         circleX = self.zz_centerButton.layer.cornerRadius;
         circleY = self.zz_centerButton.layer.cornerRadius;
-        if (pointX <= circleX && point.y <= circleY) {
-            distanceX = fabs(pointX - circleX);
-            distanceY = fabs(point.y - circleY);
+        if (pointX <= circleX && point.y <= circleY + originY) {
+            distanceX = fabs(circleX - pointX);
+            distanceY = fabs(fabs(originY - point.y) - circleY);
         }
     }
     //1.2.2处理第二象限
-    if (pointX > width / 2 && point.y <= height / 2) {
+    if (pointX > width / 2 && point.y >= originY) {
         circleX = width - self.zz_centerButton.layer.cornerRadius;
         circleY = self.zz_centerButton.layer.cornerRadius;
-        if (pointX >= circleX && point.y <= circleY) {
+        if (pointX >= circleX && point.y <= circleY + originY) {
             distanceX = fabs(pointX - circleX);
-            distanceY = fabs(point.y - circleY);
-        }
-    }
-    //1.2.3处理第三象限
-    if (pointX < width / 2 && point.y > height / 2) {
-        circleX = self.zz_centerButton.layer.cornerRadius;
-        circleY = height - self.zz_centerButton.layer.cornerRadius;
-        if (pointX <= circleX && point.y >= circleY) {
-            distanceX = fabs(pointX - circleX);
-            distanceY = fabs(point.y - circleY);
+            distanceY = fabs(fabs(originY - point.y) - circleY);
         }
     }
 
-    //1.2.4处理第四象限
-    if (pointX > width / 2 && point.y > height / 2) {
-        circleX = width - self.zz_centerButton.layer.cornerRadius;
-        circleY = height - self.zz_centerButton.layer.cornerRadius;
-        if (pointX >= circleX && point.y >= circleY) {
-            distanceX = fabs(pointX - circleX);
-            distanceY = fabs(point.y - circleY);
-        }
-    }
-    
     float result = (distanceX * distanceX + distanceY * distanceY);
-    //NSLog(@"point.x === %.2f,point.y === %.2f,result === %.2f",point.x,point.y,result);
-    if (result > self.zz_centerButton.layer.cornerRadius) {
+    //NSLog(@"pointX === %.2f,point.y === %.2f,distanceX === %.2f,distanceY === %.2f,result === %.2f",pointX,point.y,distanceX,distanceY,result);
+    
+    if (result > self.zz_centerButton.layer.cornerRadius * self.zz_centerButton.layer.cornerRadius) {
         return view;
+    }else{
+        view = self.zz_centerButton;
     }
     
     //2.获取根视图

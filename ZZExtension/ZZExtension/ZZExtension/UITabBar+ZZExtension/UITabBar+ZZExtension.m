@@ -11,12 +11,15 @@
 #import <objc/message.h>
 #import "UITabBar+ZZExtension.h"
 
-static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
+static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK,ZZ_COVERBUTTON;
 
 @interface UITabBar ()
 
 /**中间的按钮*/
 @property(nonatomic,strong)UIButton                             *zz_centerButton;
+
+/**遮盖按钮,用于遮盖原版的tabbarItem,让其不可点击*/
+@property(nonatomic,strong)UIButton                             *zz_coverButton;
 
 /**当按钮点击时,选中某个控制器,<0则不选中*/
 @property(nonatomic,assign)int                                  zz_boundIndex;
@@ -41,6 +44,26 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
     //3.事件监听(如果这里报错,说明你在main函数中修改了AppDelegate为其他类,在这里做对应修改即可!)
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"rootViewController"];
+    
+    //4.屏幕旋转监听
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeRotate:) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+
+}
+
+- (void)changeRotate:(NSNotification*)noti {
+    if (![ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {
+        return;
+    }
+    
+    UITabBarController *tabbarController = (UITabBarController *)ZZKeyWindow.rootViewController;
+    if ([[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortrait
+        || [[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortraitUpsideDown) {
+        //竖屏
+        self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.size.height);
+    } else {
+        //横屏
+        self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.size.height);
+    }
 }
 
 #pragma mark - kvo的监听,用于获取根视图处理和如果是根视图是tabbarController的处理
@@ -74,13 +97,11 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
         [tabbarController addObserver:tabbarController.tabBar forKeyPath:@"selectedIndex" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"selectedIndex"];
         
         //5.需要用一个按钮遮盖tabbar上加了按钮的item,否则遮盖不完的地方仍然可以点击
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [tabbarController.tabBar insertSubview:button belowSubview:self.zz_centerButton];
-        //button.backgroundColor = [UIColor whiteColor];
-        //button.sd_layout.centerXEqualToView(tabbarController.tabBar)
-        button.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.size.height);
-        
-        
+        self.zz_coverButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [tabbarController.tabBar insertSubview:self.zz_coverButton belowSubview:self.zz_centerButton];
+        self.zz_coverButton.backgroundColor = [UIColor whiteColor];
+        //self.zz_coverButton.sd_layout.centerXEqualToView(tabbarController.tabBar)
+        self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.size.height);
         
     }
 
@@ -193,6 +214,14 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK;
 
 -(UIButton *)zz_centerButton{
     return objc_getAssociatedObject(self, &ZZ_CENTERBUTTON);
+}
+
+-(void)setZz_coverButton:(UIButton *)zz_coverButton{
+    objc_setAssociatedObject(self, &ZZ_COVERBUTTON, zz_coverButton, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(UIButton *)zz_coverButton{
+    return objc_getAssociatedObject(self, &ZZ_COVERBUTTON);
 }
 
 -(void)setZz_boundIndex:(int)zz_boundIndex{

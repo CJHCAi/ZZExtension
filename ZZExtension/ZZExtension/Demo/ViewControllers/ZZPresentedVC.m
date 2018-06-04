@@ -21,9 +21,11 @@
     self.view.backgroundColor = [UIColor lightGrayColor];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.bounds = CGRectMake(0, 0, 180, 60);
-    button.center = self.view.center;
     [self.view addSubview:button];
+    button.sd_layout.centerXEqualToView(self.view)
+    .centerYEqualToView(self.view)
+    .widthIs(180)
+    .heightIs(60);
     button.backgroundColor = [UIColor redColor];
     [button setTitle:@"改变根视图" forState:(UIControlStateNormal)];
     [button addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];

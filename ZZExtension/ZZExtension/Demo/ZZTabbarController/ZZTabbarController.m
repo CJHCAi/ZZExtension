@@ -66,20 +66,16 @@
     if (type == 1) {
         button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.tabBar addSubview:button];
-        [button setImage:[UIImage imageNamed:@"huibaowdj"] forState:(UIControlStateNormal)];
-        [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
-        button.backgroundColor = [UIColor darkGrayColor];
+        [button setBackgroundImage:[UIImage imageNamed:@"wode_jia"] forState:(UIControlStateNormal)];
+        [button setBackgroundImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
     }else if (type == 2){
         button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.tabBar addSubview:button];
         [button setTitle:@"地图" forState:(UIControlStateNormal)];
         [button setTitle:@"地图" forState:(UIControlStateSelected)];
-        [button setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-        [button setTitleColor:[UIColor orangeColor] forState:(UIControlStateSelected)];
         [button setImage:[UIImage imageNamed:@"huibaowdj"] forState:(UIControlStateNormal)];
         [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
         button.titleLabel.font = [UIFont systemFontOfSize:10];
-        button.backgroundColor = [UIColor darkGrayColor];
         //设置图片和文字的位置,你可以根据你自己的需求算
         UIImage *image = [UIImage imageNamed:@"huibaowdj"];
         button.imageEdgeInsets = UIEdgeInsetsMake(0, (64 - image.size.width) / 2 , 30, (64 - image.size.width) / 2);
@@ -88,13 +84,14 @@
     
     //这一句使用的是第三方的布局框架->SDAutoLayout,非常好用
     //GitHub:https://github.com/gsdios/SDAutoLayout
-    button.sd_layout
-    .bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)//底部距离self.tabBar的距离为ZZSafeAreaBottomHeight
+    button.sd_layout.topSpaceToView(self.tabBar, -15)//顶部距离self.tabBar的距离为-15(超出15)
     .centerXEqualToView(self.tabBar)//横坐标和self.tabBar相同
     .widthIs(64).heightIs(64);//宽高都是64
     button.layer.cornerRadius = 32;
     button.clipsToBounds = YES;
-    
+    button.backgroundColor = [UIColor darkGrayColor];
+    [button setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [button setTitleColor:[UIColor orangeColor] forState:(UIControlStateSelected)];
     [button addTarget:self action:@selector(preventFlicker:) forControlEvents:UIControlEventAllTouchEvents];
     return button;
 }

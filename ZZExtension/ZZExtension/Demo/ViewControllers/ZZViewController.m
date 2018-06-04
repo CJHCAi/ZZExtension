@@ -20,29 +20,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CGPoint centerPoint = self.view.center;
-    UIButton *pushButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    pushButton.bounds = CGRectMake(0, 0, 180, 60);
-    pushButton.center = CGPointMake(centerPoint.x, centerPoint.y - 100);
-    [self.view addSubview:pushButton];
-    pushButton.backgroundColor = [UIColor darkGrayColor];
-    [pushButton setTitle:@"push效果" forState:(UIControlStateNormal)];
-    [pushButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    pushButton.tag = 1;
-    
     UIButton *presentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    presentButton.bounds = CGRectMake(0, 0, 180, 60);
-    presentButton.center = self.view.center;
     [self.view addSubview:presentButton];
+    //这一句使用的是第三方的约束框架->SDAutoLayout,非常好用
+    //GitHub:https://github.com/gsdios/SDAutoLayout
+    presentButton.sd_layout.centerXEqualToView(self.view)
+    .centerYEqualToView(self.view)
+    .widthIs(180)
+    .heightIs(60);
     presentButton.backgroundColor = [UIColor darkGrayColor];
     [presentButton setTitle:@"present效果" forState:(UIControlStateNormal)];
     [presentButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     presentButton.tag = 2;
     
+    UIButton *pushButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:pushButton];
+    pushButton.sd_layout.centerXEqualToView(self.view)
+    .bottomSpaceToView(presentButton, 20)
+    .widthIs(180)
+    .heightIs(60);
+    pushButton.backgroundColor = [UIColor darkGrayColor];
+    [pushButton setTitle:@"push效果" forState:(UIControlStateNormal)];
+    [pushButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    pushButton.tag = 1;
+    
     UIButton *changeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    changeButton.bounds = CGRectMake(0, 0, 180, 60);
-    changeButton.center = CGPointMake(centerPoint.x, centerPoint.y + 100);
     [self.view addSubview:changeButton];
+    changeButton.sd_layout.centerXEqualToView(self.view)
+    .topSpaceToView(presentButton, 20)
+    .widthIs(180)
+    .heightIs(60);
     changeButton.backgroundColor = [UIColor darkGrayColor];
     [changeButton setTitle:@"改变根视图" forState:(UIControlStateNormal)];
     [changeButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];

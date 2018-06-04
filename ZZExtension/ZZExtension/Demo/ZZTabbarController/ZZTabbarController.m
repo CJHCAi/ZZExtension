@@ -92,7 +92,7 @@
     .bottomSpaceToView(self.tabBar, ZZSafeAreaBottomHeight)//底部距离self.tabBar的距离为ZZSafeAreaBottomHeight
     .centerXEqualToView(self.tabBar)//横坐标和self.tabBar相同
     .widthIs(64).heightIs(64);//宽高都是64
-    button.layer.cornerRadius = 16;
+    button.layer.cornerRadius = 32;
     button.clipsToBounds = YES;
     
     [button addTarget:self action:@selector(preventFlicker:) forControlEvents:UIControlEventAllTouchEvents];

@@ -12,5 +12,5 @@ s.homepage                  = "https://github.com/iOS-ZZ/ZZExtension.git"
 s.source                    = { :git => "https://github.com/iOS-ZZ/ZZExtension.git", :tag => "1.0.3" }
 s.source_files              = "ZZExtension/ZZExtension/ZZExtension/**/*"
 s.requires_arc              = true
-s.dependency                'SDAutoLayout'
+# s.dependency                'SDAutoLayout'
 end

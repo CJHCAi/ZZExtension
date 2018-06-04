@@ -26,6 +26,9 @@
 /**我的*/
 @property(nonatomic,strong)ZZViewController *profileVC;
 
+/**中间的按钮*/
+@property(nonatomic,strong)UIButton         *centerButton;
+
 @end
 
 @implementation ZZTabbarController
@@ -37,17 +40,39 @@
     
     //2.超出tabbarItem的tabbar
     [self demo];
+    
+    //3.可有可无的部分:横屏时改变按钮的样式
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeRotate:) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+    
 }
 
+- (void)changeRotate:(NSNotification*)noti {
+    if ([[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortrait
+        || [[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortraitUpsideDown) {//竖屏
+        if (self.centerButton.tag == 2) {
+            //设置图片和文字的位置,你可以根据你自己的需求算
+            UIImage *image = [UIImage imageNamed:@"huibaowdj"];
+            self.centerButton.imageEdgeInsets = UIEdgeInsetsMake(0, (64 - image.size.width) / 2 , 30, (64 - image.size.width) / 2);
+            self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(44, -2, 0, 21);//四个值按顺序是:上坐下右
+        }
+    } else {//横屏
+        if (self.centerButton.tag == 2) {
+            //设置图片和文字的位置,你可以根据你自己的需求算
+            UIImage *image = [UIImage imageNamed:@"huibaowdj"];
+            self.centerButton.imageEdgeInsets = UIEdgeInsetsMake((64 - image.size.width) / 2, 2 , (64 - image.size.width) / 2, 30);
+            self.centerButton.titleEdgeInsets = UIEdgeInsetsMake(22, 2, 22, 2);//四个值按顺序是:上坐下右
+        }
+    }
+}
 
 #pragma mark - 这里的demo是举例说明怎么添加一个超出tabbar的按钮,按钮你自己写!
 -(void)demo{
     
     //1.这里是获取一个按钮,我这里通过type给你几个不同的选项看效果,具体的样式你根据自己的需求去写!
-    UIButton *button = [self getButtonWithType:2];
+    self.centerButton = [self getButtonWithType:2];
     
     //2.核心代码:普通效果:传入的按钮就直接作为中间的按钮了,给了一个回调,可以获取按钮的点击事件,请注意block的循环引用!
-    [self.tabBar zz_setCenterButtonWithButton:button selectIndexWhenThisButtonClick:1 callBack:nil];
+    [self.tabBar zz_setCenterButtonWithButton:self.centerButton selectIndexWhenThisButtonClick:1 callBack:nil];
     
     /**3.核心代码:present效果:一样的参数,传入selectIndexWhenThisButtonClick<0的值,不会改变选中的item,但仍然会回调callBack!(点击查看)
      __weak typeof (self)weakSelf = self;
@@ -65,21 +90,31 @@
     UIButton *button;
     if (type == 1) {
         button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.tabBar addSubview:button];
+        [self.tabBar addSubview:button];button.tag = 1;
         [button setBackgroundImage:[UIImage imageNamed:@"wode_jia"] forState:(UIControlStateNormal)];
         [button setBackgroundImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
     }else if (type == 2){
         button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.tabBar addSubview:button];
+        [self.tabBar addSubview:button];button.tag = 2;
         [button setTitle:@"地图" forState:(UIControlStateNormal)];
         [button setTitle:@"地图" forState:(UIControlStateSelected)];
         [button setImage:[UIImage imageNamed:@"huibaowdj"] forState:(UIControlStateNormal)];
         [button setImage:[UIImage imageNamed:@"huibaodj"] forState:(UIControlStateSelected)];
         button.titleLabel.font = [UIFont systemFontOfSize:10];
-        //设置图片和文字的位置,你可以根据你自己的需求算
-        UIImage *image = [UIImage imageNamed:@"huibaowdj"];
-        button.imageEdgeInsets = UIEdgeInsetsMake(0, (64 - image.size.width) / 2 , 30, (64 - image.size.width) / 2);
-        button.titleEdgeInsets = UIEdgeInsetsMake(44, -2, 0, 21);//四个值按顺序是:上坐下右
+        
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {//竖屏
+            //设置图片和文字的位置,你可以根据你自己的需求算
+            UIImage *image = [UIImage imageNamed:@"huibaowdj"];
+            button.imageEdgeInsets = UIEdgeInsetsMake(0, (64 - image.size.width) / 2 , 30, (64 - image.size.width) / 2);
+            button.titleEdgeInsets = UIEdgeInsetsMake(44, -2, 0, 21);//四个值按顺序是:上坐下右
+        }else {//横屏
+            //设置图片和文字的位置,你可以根据你自己的需求算
+            UIImage *image = [UIImage imageNamed:@"huibaowdj"];
+            button.imageEdgeInsets = UIEdgeInsetsMake((64 - image.size.width) / 2, 2 , (64 - image.size.width) / 2, 30);
+            button.titleEdgeInsets = UIEdgeInsetsMake(22, 2, 22, 2);//四个值按顺序是:上坐下右
+        }
+        
     }
     
     //这一句使用的是第三方的布局框架->SDAutoLayout,非常好用
@@ -150,3 +185,4 @@
 
 
 @end
+

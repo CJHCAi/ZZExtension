@@ -17,8 +17,9 @@
 */
 
 
-cocoapods导入：
+## 使用方法
+cocoapods：
 pod 'ZZExtension'
 
-普通方式使用：
+普通方式：
 将工程目录学习的ZZExtension文件拖入到你的工程中

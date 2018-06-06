@@ -6,7 +6,6 @@
 //  Copyright © 2018年 刘猛. All rights reserved.
 //
 
-#import "AppDelegate.h"
 #import "ZZExtension.h"
 #import <objc/message.h>
 
@@ -41,8 +40,9 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK,ZZ_COVERB
     [self.zz_centerButton addTarget:self action:@selector(zz_centerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     //3.事件监听(如果这里报错,说明你在main函数中修改了AppDelegate为其他类,在这里做对应修改即可!)
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [app.window addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"rootViewController"];
+    
+    id app = [[UIApplication sharedApplication] delegate];
+    [[app valueForKey:@"window"] addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"rootViewController"];
     
     //4.屏幕旋转监听
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeRotate:) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];

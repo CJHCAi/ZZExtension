@@ -16,11 +16,12 @@
     */
 
 ## 使用效果
-效果图片&录屏/gif后续更新，可参照各个“tabbarItem”超出tabbar效果的app，且完美实现了圆角部分不可点击。
+1.可下载此项目直接运行查看
+2.效果图片&录屏/gif后续更新，可参照各个“tabbarItem”超出tabbar效果的app，且完美实现了圆角部分不可点击。
 
 ## 使用方法
-cocoapods：
+1.cocoapods方式：
 pod 'ZZExtension','~> 1.1.3'
 
-普通方式：
+2.普通方式：
 将工程目录学习的ZZExtension文件拖入到你的工程中

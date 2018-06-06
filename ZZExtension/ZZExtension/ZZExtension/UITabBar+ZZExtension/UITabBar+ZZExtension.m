@@ -39,8 +39,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK,ZZ_COVERB
     //2.方法绑定
     [self.zz_centerButton addTarget:self action:@selector(zz_centerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    //3.事件监听(如果这里报错,说明你在main函数中修改了AppDelegate为其他类,在这里做对应修改即可!)
-    
+    //3.事件监听(window的rootViewController改变时需要一些事情！)
     id app = [[UIApplication sharedApplication] delegate];
     [[app valueForKey:@"window"] addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"rootViewController"];
     

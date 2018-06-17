@@ -18,11 +18,12 @@
 ## 使用效果
 1.可下载此项目直接运行查看
 
-2.效果图片&录屏/gif后续更新，可参照各个“tabbarItem”超出tabbar效果的app，且完美实现了圆角部分不可点击。
+2.效果图片&录屏/gif，可参照各个“tabbarItem”超出tabbar效果的app，且完美实现了圆角部分不可点击，视频中点击中间的事件可以获取，你可以做你想做的事，视频中的体现为切换tabbar的选中控制器(白色的)。
+![](http://pagw872k4.bkt.clouddn.com/1.1.6.mov)
 
 ## 使用方法
 1.cocoapods方式：
-pod 'ZZExtension','~> 1.1.3'
+pod 'ZZExtension','~> 1.1.6'
 
 2.普通方式：
 将工程目录学习的ZZExtension文件拖入到你的工程中

@@ -97,7 +97,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK,ZZ_COVERB
         //5.需要用一个按钮遮盖tabbar上加了按钮的item,否则遮盖不完的地方仍然可以点击
         self.zz_coverButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [tabbarController.tabBar insertSubview:self.zz_coverButton belowSubview:self.zz_centerButton];
-        //self.zz_coverButton.backgroundColor = [UIColor whiteColor];
+        [self.zz_coverButton addTarget:self action:@selector(zz_centerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.frame.size.height);
         
     }

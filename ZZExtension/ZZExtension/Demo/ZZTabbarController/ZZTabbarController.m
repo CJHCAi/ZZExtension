@@ -18,14 +18,14 @@
 @property(nonatomic,strong)NSArray          *selectedImageNames;
 
 //tabbar上的控制器
-/**首页*/
-@property(nonatomic,strong)ZZViewController *homeVC;
-
-/**地图*/
-@property(nonatomic,strong)ZZViewController *mapVC;
-
-/**我的*/
-@property(nonatomic,strong)ZZViewController *profileVC;
+///**首页*/
+//@property(nonatomic,strong)ZZViewController *homeVC;
+//
+///**地图*/
+//@property(nonatomic,strong)ZZViewController *mapVC;
+//
+///**我的*/
+//@property(nonatomic,strong)ZZViewController *profileVC;
 
 /**中间的按钮*/
 @property(nonatomic,strong)UIButton         *centerButton;
@@ -34,17 +34,58 @@
 
 @implementation ZZTabbarController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+#pragma mark - 对外提供的初始化方法
+/**viewControllers的count一定要为单数,否则会创建失败!(正在实现中)*/
+-(instancetype)initWithImages:(NSArray <NSString *>*)imageArray selectedImages:(NSArray <NSString *>*)selectedImageArray titles:(NSArray <NSString *>*)titleArray viewControllers:(NSArray <UIViewController *>*)viewControllerArray centerButton:(UIButton *)centerButton{
+    if (self == [super init]) {
+        self.imageNames = imageArray;
+        self.selectedImageNames = selectedImageArray;
+        
+        for (int i = 0; i < viewControllerArray.count; i ++) {
+            UIViewController *vc = viewControllerArray[i];
+            vc.tabBarItem.image = [[UIImage imageNamed:self.imageNames[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc.tabBarItem.selectedImage = [[UIImage imageNamed:self.selectedImageNames[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            
+            if ([vc isKindOfClass:[UINavigationController class]]) {
+                UINavigationController *tempNav = (UINavigationController *)vc;
+                vc = tempNav.viewControllers.firstObject;
+            }
+            [vc.navigationItem setTitle:titleArray[i]];
+        }
+        self.tabBar.translucent = NO;self.viewControllers = viewControllerArray;[self setSelectedIndex:0];
+        self.tabBar.backgroundImage = [UIImage imageNamed:@"tabbarImage"];//修改tabbar的背景图片
+        self.tabBar.shadowImage = [[UIImage alloc] init];//去掉tabbar上面的横线
+        
+        //1.centerButton的具体的样式你根据自己的需求去写!
+        self.centerButton = centerButton;
+        
+        //2.核心代码:普通效果:传入的按钮就直接作为中间的按钮了,给了一个回调,可以获取按钮的点击事件,请注意block的循环引用!
+        [self.tabBar zz_setCenterButtonWithButton:self.centerButton selectIndexWhenThisButtonClick:1 callBack:nil];
+        
+    }
+    return self;
+}
+
+-(instancetype)init{
+    if (self == [super init]) {
+        //1.一些基础性的代码,在tabbarContrller上添加三个navigationController.
+        [self setupTabbarController];
+        
+        //2.超出tabbarItem的tabbar
+        [self demo];
+        
+    }
+    return self;
+}
+
+-(void)awakeFromNib{
+    [super awakeFromNib];
     //1.一些基础性的代码,在tabbarContrller上添加三个navigationController.
     [self setupTabbarController];
     
     //2.超出tabbarItem的tabbar
     [self demo];
-    
-    //3.可有可无的部分:横屏时改变按钮的样式
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeRotate:) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
-    
+
 }
 
 - (void)changeRotate:(NSNotification*)noti {
@@ -83,6 +124,9 @@
      [weakSelf presentViewController:vc animated:YES completion:nil];
      }];
      */
+    
+    //3.可有可无的部分:横屏时改变按钮的样式
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeRotate:) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
     
 }
 
@@ -157,21 +201,21 @@
     homeVC.view.backgroundColor = [UIColor yellowColor];
     homeVC.title = @"首页";
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
-    self.homeVC = homeVC;[vcArr addObject:homeNav];
+    [vcArr addObject:homeNav];
     
     //地图控制器
     ZZViewController *mapVC = [[ZZViewController alloc] init];
     mapVC.view.backgroundColor = [UIColor whiteColor];
     [mapVC.navigationItem setTitle:@"地图"];
     UINavigationController *mapNav = [[UINavigationController alloc] initWithRootViewController:mapVC];
-    self.homeVC = mapVC;[vcArr addObject:mapNav];
+    [vcArr addObject:mapNav];
     
     //我的控制器
     ZZViewController *profileVC = [[ZZViewController alloc] init];
     profileVC.view.backgroundColor = [UIColor redColor];
     profileVC.title = @"我的";
     UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:profileVC];
-    self.profileVC = profileVC;[vcArr addObject:profileNav];
+    [vcArr addObject:profileNav];
     
     for (int i = 0; i < vcArr.count; i ++) {
         UIViewController *vc = vcArr[i];

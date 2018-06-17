@@ -19,6 +19,8 @@
 1.可下载此项目直接运行查看
 
 2.效果图片&录屏/gif，可参照各个“tabbarItem”超出tabbar效果的app，且完美实现了圆角部分不可点击，视频中点击中间的事件可以获取，你可以做你想做的事，视频中的体现为切换tabbar的选中控制器(白色的)。
+
+![](http://ww3.sinaimg.cn/mw690/9b8146edgw1f1nm3pziawg205u0a0qv5.gif)
 ![](https://weibo.com/u/5935717137/home?wvr=5)
 
 ## 使用方法

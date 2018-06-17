@@ -41,25 +41,25 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK,ZZ_COVERB
     
     //3.事件监听(window的rootViewController改变时需要一些事情！)
     id app = [[UIApplication sharedApplication] delegate];
-    [[app valueForKey:@"window"] addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"rootViewController"];
+    if ([app valueForKey:@"window"]) {//如果是通过代码创建的window
+        [[app valueForKey:@"window"] addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"rootViewController"];
+    }else{//如果是通过storyboard创建的window
+        [app addObserver:self forKeyPath:@"window" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"window"];
+    }
     
     //4.屏幕旋转监听
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeRotate:) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
-
 }
 
 - (void)changeRotate:(NSNotification*)noti {
-    if (![ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {
-        return;
-    }
     
+    if (![ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {return;}
     UITabBarController *tabbarController = (UITabBarController *)ZZKeyWindow.rootViewController;
+    
     if ([[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortrait
-        || [[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortraitUpsideDown) {
-        //竖屏
+        || [[UIDevice currentDevice] orientation] == UIInterfaceOrientationPortraitUpsideDown) {//竖屏
         self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.frame.size.height);
-    } else {
-        //横屏
+    } else {//横屏
         self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.frame.size.height);
     }
 }
@@ -69,11 +69,17 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK,ZZ_COVERB
     
     NSString *contextString = (__bridge NSString *)context;
     
-    //1.这里是处理根视图是tabbarController是selectedViewController/selectedIndex改变的监听
+    //1.处理在通过storyboard创建window时zz_setCenterButtonWithButton获取不到window的情况
+    if ([contextString isEqualToString:@"window"]) {
+        id app = [[UIApplication sharedApplication] delegate];
+        [[app valueForKey:@"window"] addObserver:self forKeyPath:@"rootViewController" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:@"rootViewController"];
+    }
+
+    //2.这里是处理根视图是tabbarController是selectedViewController/selectedIndex改变的监听
     if ([contextString isEqualToString:@"selectedViewController"] || [contextString isEqualToString:@"selectedIndex"]) {
         if ([ZZKeyWindow.rootViewController isKindOfClass:[UITabBarController class]]) {
             UITabBarController *tabbrController = (UITabBarController *)ZZKeyWindow.rootViewController;
-            self.zz_centerButton.selected = tabbrController.selectedIndex == self.zz_boundIndex;
+            self.zz_centerButton.selected       = tabbrController.selectedIndex == self.zz_boundIndex;
         }
         return;
     }
@@ -97,7 +103,7 @@ static char ZZ_CENTERBUTTON,ZZ_BOUNDINDEX,ZZ_CENTERBUTTONCLICKCALLBACK,ZZ_COVERB
         //5.需要用一个按钮遮盖tabbar上加了按钮的item,否则遮盖不完的地方仍然可以点击
         self.zz_coverButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [tabbarController.tabBar insertSubview:self.zz_coverButton belowSubview:self.zz_centerButton];
-        [self.zz_coverButton addTarget:self action:@selector(zz_centerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        //[self.zz_coverButton addTarget:self action:@selector(zz_centerButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         self.zz_coverButton.frame = CGRectMake(ZZWidth / tabbarController.viewControllers.count, 0, ZZWidth / tabbarController.viewControllers.count, tabbarController.tabBar.frame.size.height);
         
     }

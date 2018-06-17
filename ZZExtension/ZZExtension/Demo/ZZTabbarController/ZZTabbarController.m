@@ -34,38 +34,6 @@
 
 @implementation ZZTabbarController
 
-#pragma mark - 对外提供的初始化方法
-/**viewControllers的count一定要为单数,否则会创建失败!(正在实现中)*/
--(instancetype)initWithImages:(NSArray <NSString *>*)imageArray selectedImages:(NSArray <NSString *>*)selectedImageArray titles:(NSArray <NSString *>*)titleArray viewControllers:(NSArray <UIViewController *>*)viewControllerArray centerButton:(UIButton *)centerButton{
-    if (self == [super init]) {
-        self.imageNames = imageArray;
-        self.selectedImageNames = selectedImageArray;
-        
-        for (int i = 0; i < viewControllerArray.count; i ++) {
-            UIViewController *vc = viewControllerArray[i];
-            vc.tabBarItem.image = [[UIImage imageNamed:self.imageNames[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-            vc.tabBarItem.selectedImage = [[UIImage imageNamed:self.selectedImageNames[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-            
-            if ([vc isKindOfClass:[UINavigationController class]]) {
-                UINavigationController *tempNav = (UINavigationController *)vc;
-                vc = tempNav.viewControllers.firstObject;
-            }
-            [vc.navigationItem setTitle:titleArray[i]];
-        }
-        self.tabBar.translucent = NO;self.viewControllers = viewControllerArray;[self setSelectedIndex:0];
-        self.tabBar.backgroundImage = [UIImage imageNamed:@"tabbarImage"];//修改tabbar的背景图片
-        self.tabBar.shadowImage = [[UIImage alloc] init];//去掉tabbar上面的横线
-        
-        //1.centerButton的具体的样式你根据自己的需求去写!
-        self.centerButton = centerButton;
-        
-        //2.核心代码:普通效果:传入的按钮就直接作为中间的按钮了,给了一个回调,可以获取按钮的点击事件,请注意block的循环引用!
-        [self.tabBar zz_setCenterButtonWithButton:self.centerButton selectIndexWhenThisButtonClick:1 callBack:nil];
-        
-    }
-    return self;
-}
-
 -(instancetype)init{
     if (self == [super init]) {
         //1.一些基础性的代码,在tabbarContrller上添加三个navigationController.
@@ -227,7 +195,37 @@
     self.tabBar.shadowImage = [[UIImage alloc] init];//去掉tabbar上面的横线
 }
 
-
+#pragma mark - 对外提供的初始化方法
+/**viewControllers的count一定要为单数,否则会创建失败!(正在实现中,暂未开放使用)*/
+-(instancetype)initWithImages:(NSArray <NSString *>*)imageArray selectedImages:(NSArray <NSString *>*)selectedImageArray titles:(NSArray <NSString *>*)titleArray viewControllers:(NSArray <UIViewController *>*)viewControllerArray centerButton:(UIButton *)centerButton{
+    if (self == [super init]) {
+        self.imageNames = imageArray;
+        self.selectedImageNames = selectedImageArray;
+        
+        for (int i = 0; i < viewControllerArray.count; i ++) {
+            UIViewController *vc = viewControllerArray[i];
+            vc.tabBarItem.image = [[UIImage imageNamed:self.imageNames[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            vc.tabBarItem.selectedImage = [[UIImage imageNamed:self.selectedImageNames[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            
+            if ([vc isKindOfClass:[UINavigationController class]]) {
+                UINavigationController *tempNav = (UINavigationController *)vc;
+                vc = tempNav.viewControllers.firstObject;
+            }
+            [vc.navigationItem setTitle:titleArray[i]];
+        }
+        self.tabBar.translucent = NO;self.viewControllers = viewControllerArray;[self setSelectedIndex:0];
+        self.tabBar.backgroundImage = [UIImage imageNamed:@"tabbarImage"];//修改tabbar的背景图片
+        self.tabBar.shadowImage = [[UIImage alloc] init];//去掉tabbar上面的横线
+        
+        //1.centerButton的具体的样式你根据自己的需求去写!
+        self.centerButton = centerButton;
+        
+        //2.核心代码:普通效果:传入的按钮就直接作为中间的按钮了,给了一个回调,可以获取按钮的点击事件,请注意block的循环引用!
+        [self.tabBar zz_setCenterButtonWithButton:self.centerButton selectIndexWhenThisButtonClick:1 callBack:nil];
+        
+    }
+    return self;
+}
 
 @end
 

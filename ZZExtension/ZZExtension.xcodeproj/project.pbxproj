@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0834F42520D7420400205F05 /* 1.1.6.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0834F42420D7420400205F05 /* 1.1.6.gif */; };
+		0834F42720D7778C00205F05 /* 1.1.6present版.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0834F42620D7778C00205F05 /* 1.1.6present版.gif */; };
 		08A01EE720B28BC000EE4004 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A01EE620B28BC000EE4004 /* AppDelegate.m */; };
 		08A01EED20B28BC000EE4004 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A01EEB20B28BC000EE4004 /* Main.storyboard */; };
 		08A01EEF20B28BC100EE4004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A01EEE20B28BC100EE4004 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		0834F42420D7420400205F05 /* 1.1.6.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.1.6.gif; sourceTree = "<group>"; };
+		0834F42620D7778C00205F05 /* 1.1.6present版.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "1.1.6present版.gif"; sourceTree = "<group>"; };
 		0860EC6620B69F9C000A3C87 /* ZZExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZExtension.h; sourceTree = "<group>"; };
 		08A01EE220B28BC000EE4004 /* ZZExtension.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZZExtension.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08A01EE520B28BC000EE4004 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				08A01EF320B28BC100EE4004 /* Info.plist */,
 				08A01EF420B28BC100EE4004 /* main.m */,
 				0834F42420D7420400205F05 /* 1.1.6.gif */,
+				0834F42620D7778C00205F05 /* 1.1.6present版.gif */,
 			);
 			name = APP;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08A01EF220B28BC100EE4004 /* LaunchScreen.storyboard in Resources */,
+				0834F42720D7778C00205F05 /* 1.1.6present版.gif in Resources */,
 				0834F42520D7420400205F05 /* 1.1.6.gif in Resources */,
 				08A01EEF20B28BC100EE4004 /* Assets.xcassets in Resources */,
 				08A01EED20B28BC000EE4004 /* Main.storyboard in Resources */,

@@ -7,6 +7,7 @@
 //
 
 #import "ZZExtension.h"
+#import "ZZPresentedVC.h"
 #import "ZZViewController.h"
 #import "ZZTabbarController.h"
 #import <SDAutoLayout/SDAutoLayout.h>
@@ -82,16 +83,17 @@
     self.centerButton = [self getButtonWithType:2];
     
     //2.核心代码:普通效果:传入的按钮就直接作为中间的按钮了,给了一个回调,可以获取按钮的点击事件,请注意block的循环引用!
-    [self.tabBar zz_setCenterButtonWithButton:self.centerButton selectIndexWhenThisButtonClick:1 callBack:nil];
+    //[self.tabBar zz_setCenterButtonWithButton:self.centerButton selectIndexWhenThisButtonClick:1 callBack:nil];
     
-    /**3.核心代码:present效果:传入selectIndexWhenThisButtonClick<0的值,不会改变选中的item!
-     __weak typeof (self)weakSelf = self;
-     [self.tabBar zz_setCenterButtonWithButton:button selectIndexWhenThisButtonClick:-1 callBack:^{
-     ZZViewController *vc = [[ZZViewController alloc] init];
-     vc.view.backgroundColor = [UIColor darkGrayColor];
-     [weakSelf presentViewController:vc animated:YES completion:nil];
-     }];
-     */
+    ///**3.核心代码:present效果:传入selectIndexWhenThisButtonClick<0的值,不会改变选中的item!
+    __weak typeof (self)weakSelf = self;
+    [self.tabBar zz_setCenterButtonWithButton:self.centerButton selectIndexWhenThisButtonClick:-1 callBack:^{
+        ZZPresentedVC *vc = [[ZZPresentedVC alloc] init];
+        vc.view.backgroundColor = [UIColor darkGrayColor];
+        [weakSelf presentViewController:vc animated:YES completion:nil];
+        weakSelf.centerButton.selected = NO;
+    }];
+     //*/
     
     //3.可有可无的部分:横屏时改变按钮的样式
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeRotate:) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];

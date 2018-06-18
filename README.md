@@ -18,9 +18,9 @@
 ## 使用效果
 1.可下载此项目直接运行查看
 
-2.效果图片&录屏/gif，可参照各个“tabbarItem”超出tabbar效果的app，且完美实现了圆角部分不可点击，视频中点击中间的事件可以获取，你可以做你想做的事，视频中的体现为切换tabbar的选中控制器(白色的)。
+2.效果gif，可参照各个“tabbarItem”超出tabbar效果的app，且完美实现了圆角部分不可点击，gif中点击中间的事件可以获取，你可以做你想做的事，视频中的体现为切换tabbar的选中控制器(白色的)。
 
-![](https://github.com/ZZExtension/ZZExtension/ZZExtension/1.1.6.gif)
+![](https://github.com/iOS-ZZ/ZZExtension/blob/master/ZZExtension/ZZExtension/1.1.6.gif)
 
 ## 使用方法
 1.cocoapods方式：

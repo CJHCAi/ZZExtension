@@ -28,4 +28,4 @@
 pod 'ZZExtension','~> 1.1.6'
 
 2.普通方式：
-将工程目录学习的ZZExtension文件拖入到你的工程中
+将工程目录下的ZZExtension(内部主要是类的类别)文件拖入到你的工程中。
